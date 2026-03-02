@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ash's Daily Timetable</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #00ff88;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --accent4: #ef4444;
+    --accent5: #3b82f6;
+    --pink: #ec4899;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 10% 10%, rgba(0,255,136,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 90%, rgba(124,58,237,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .header h1 span { color: var(--accent); }
+
+  .header p {
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    margin-top: 8px;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 6px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .tab:hover { color: var(--text); }
+
+  .tab.active {
+    background: var(--surface2);
+    color: var(--accent);
+    border: 1px solid rgba(0,255,136,0.2);
+  }
+
+  /* SCHEDULE */
+  .schedule { display: none; }
+  .schedule.active { display: block; }
+
+  .day-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+  }
+
+  .day-label-text {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .day-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-college { background: rgba(59,130,246,0.15); color: var(--accent5); }
+  .badge-rest { background: rgba(0,255,136,0.1); color: var(--accent); }
+  .badge-beast { background: rgba(245,158,11,0.15); color: var(--accent3); }
+
+  /* TIME BLOCKS */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .block {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.15s, border-color 0.15s;
+  }
+
+  .block:hover {
+    transform: translateX(3px);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .block-time {
+    background: var(--surface2);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .time-main {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .time-dur {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .block-content {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .block-emoji { font-size: 1.3rem; flex-shrink: 0; }
+
+  .block-info { flex: 1; }
+
+  .block-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    line-height: 1.2;
+  }
+
+  .block-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  .block-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    padding: 3px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* BLOCK COLORS */
+  .b-wake    { background: linear-gradient(90deg, rgba(245,158,11,0.08), transparent); }
+  .b-cardio  { background: linear-gradient(90deg, rgba(236,72,153,0.08), transparent); }
+  .b-dsa     { background: linear-gradient(90deg, rgba(0,255,136,0.07), transparent); }
+  .b-college { background: linear-gradient(90deg, rgba(59,130,246,0.07), transparent); }
+  .b-web     { background: linear-gradient(90deg, rgba(124,58,237,0.07), transparent); }
+  .b-sec     { background: linear-gradient(90deg, rgba(245,158,11,0.07), transparent); }
+  .b-proj    { background: linear-gradient(90deg, rgba(239,68,68,0.07), transparent); }
+  .b-break   { background: transparent; }
+  .b-github  { background: linear-gradient(90deg, rgba(0,255,136,0.04), transparent); }
+  .b-sleep   { background: linear-gradient(90deg, rgba(99,102,241,0.07), transparent); }
+  .b-free    { background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent); }
+
+  .tag-dsa    { background: rgba(0,255,136,0.12); color: var(--accent); }
+  .tag-web    { background: rgba(124,58,237,0.15); color: #a78bfa; }
+  .tag-sec    { background: rgba(245,158,11,0.12); color: var(--accent3); }
+  .tag-body   { background: rgba(236,72,153,0.12); color: var(--pink); }
+  .tag-college{ background: rgba(59,130,246,0.12); color: var(--accent5); }
+  .tag-habit  { background: rgba(0,255,136,0.08); color: var(--accent); }
+  .tag-rest   { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  .tag-proj   { background: rgba(239,68,68,0.12); color: var(--accent4); }
+
+  /* STATS SUMMARY */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: 'Space Mono', monospace;
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* RULES */
+  .rules {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+
+  .rules-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .rule {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .rule-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: rgba(0,255,136,0.08);
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .rules-grid { grid-template-columns: 1fr; }
+    .block { grid-template-columns: 90px 1fr; }
+    .tabs { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Ash's <span>Daily Timetable</span></h1>
+    <p>PLACEMENT PREP · CSE · CYBER SEC TRACK · MARCH–AUGUST 2026</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" style="color:var(--accent)">2.5h</div>
+      <div class="stat-lbl">DSA DAILY</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#a78bfa">2h</div>
+      <div class="stat-lbl">WEB DEV</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--accent3)">1.5h</div>
+      <div class="stat-lbl">CYBER SEC</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--pink)">30m</div>
+      <div class="stat-lbl">CARDIO</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--accent5)">7h</div>
+      <div class="stat-lbl">TOTAL STUDY</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('weekday')">Mon–Fri (College)</button>
+    <button class="tab" onclick="showTab('saturday')">Saturday (Half Day)</button>
+    <button class="tab" onclick="showTab('sunday')">Sunday (Full Day)</button>
+    <button class="tab" onclick="showTab('summer')">Summer (May–Jun)</button>
+  </div>
+
+  <!-- WEEKDAY -->
+  <div class="schedule active" id="weekday">
+    <div class="day-label">
+      <span class="day-label-text">Monday — Friday</span>
+      <span class="day-badge badge-college">COLLEGE DAY</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block b-wake">
+        <div class="block-time">
+          <div class="time-main">6:00 AM</div>
+          <div class="time-dur">30 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">⏰</div>
+          <div class="block-info">
+            <div class="block-title">Wake Up + Fresh Up</div>
+            <div class="block-sub">No phone for first 10 mins. Drink water. Get moving.</div>
+          </div>
+          <span class="block-tag tag-rest">MORNING</span>
+        </div>
+      </div>
+
+      <div class="block b-cardio">
+        <div class="block-time">
+          <div class="time-main">6:30 AM</div>
+          <div class="time-dur">30 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🏃</div>
+          <div class="block-info">
+            <div class="block-title">Cardio</div>
+            <div class="block-sub">Run, walk, or jump rope. Gets blood flowing before DSA.</div>
+          </div>
+          <span class="block-tag tag-body">BODY</span>
+        </div>
+      </div>
+
+      <div class="block b-dsa">
+        <div class="block-time">
+          <div class="time-main">7:00 AM</div>
+          <div class="time-dur">1 hr</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🧠</div>
+          <div class="block-info">
+            <div class="block-title">DSA — Striver A2Z</div>
+            <div class="block-sub">Freshest brain slot. Solve 2–3 problems. No distractions.</div>
+          </div>
+          <span class="block-tag tag-dsa">DSA</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time">
+          <div class="time-main">8:00 AM</div>
+          <div class="time-dur">30 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🍳</div>
+          <div class="block-info">
+            <div class="block-title">Breakfast — Mess</div>
+            <div class="block-sub">Eat properly. No studying during meals.</div>
+          </div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-college">
+        <div class="block-time">
+          <div class="time-main">9:00 AM</div>
+          <div class="time-dur">4 hrs</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🎓</div>
+          <div class="block-info">
+            <div class="block-title">College Classes</div>
+            <div class="block-sub">Be present. Take notes. Use any 10-min gap to review yesterday's DSA.</div>
+          </div>
+          <span class="block-tag tag-college">COLLEGE</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time">
+          <div class="time-main">1:00 PM</div>
+          <div class="time-dur">45 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🍱</div>
+          <div class="block-info">
+            <div class="block-title">Lunch + Rest</div>
+            <div class="block-sub">Eat. 15 min walk or rest. Let your brain reset.</div>
+          </div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-web">
+        <div class="block-time">
+          <div class="time-main">1:45 PM</div>
+          <div class="time-dur">2 hrs</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🌐</div>
+          <div class="block-info">
+            <div class="block-title">Web Dev — Chai aur Code</div>
+            <div class="block-sub">Code along actively. Build and push to GitHub after every session.</div>
+          </div>
+          <span class="block-tag tag-web">WEB DEV</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time">
+          <div class="time-main">3:45 PM</div>
+          <div class="time-dur">30 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">☕</div>
+          <div class="block-info">
+            <div class="block-title">Short Break</div>
+            <div class="block-sub">Tea, walk, music. No screens ideally. Recharge.</div>
+          </div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-dsa">
+        <div class="block-time">
+          <div class="time-main">4:15 PM</div>
+          <div class="time-dur">1.5 hrs</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🧠</div>
+          <div class="block-info">
+            <div class="block-title">DSA — Second Slot</div>
+            <div class="block-sub">Revisit morning problem. Attempt 2 more. Focus on understanding patterns.</div>
+          </div>
+          <span class="block-tag tag-dsa">DSA</span>
+        </div>
+      </div>
+
+      <div class="block b-sec">
+        <div class="block-time">
+          <div class="time-main">5:45 PM</div>
+          <div class="time-dur">1.5 hrs</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🔐</div>
+          <div class="block-info">
+            <div class="block-title">Cyber Security — TCM SOC L1</div>
+            <div class="block-sub">Course + LetsDefend / CyberDefenders practice. Write notes.</div>
+          </div>
+          <span class="block-tag tag-sec">CYBER SEC</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time">
+          <div class="time-main">7:15 PM</div>
+          <div class="time-dur">45 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🚶</div>
+          <div class="block-info">
+            <div class="block-title">Wind Down + Freshen Up</div>
+            <div class="block-sub">Light walk. Prepare for dinner. No heavy content.</div>
+          </div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time">
+          <div class="time-main">8:00 PM</div>
+          <div class="time-dur">30 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🍽️</div>
+          <div class="block-info">
+            <div class="block-title">Dinner — Mess</div>
+            <div class="block-sub">Eat well. This is your last real break.</div>
+          </div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-github">
+        <div class="block-time">
+          <div class="time-main">8:30 PM</div>
+          <div class="time-dur">1 hr</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">📝</div>
+          <div class="block-info">
+            <div class="block-title">Review + GitHub Push</div>
+            <div class="block-sub">Push today's code. Write a short note on what you learned. Plan tomorrow.</div>
+          </div>
+          <span class="block-tag tag-habit">HABIT</span>
+        </div>
+      </div>
+
+      <div class="block b-proj">
+        <div class="block-time">
+          <div class="time-main">9:30 PM</div>
+          <div class="time-dur">45 min</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">🔍</div>
+          <div class="block-info">
+            <div class="block-title">College Project (3x per week)</div>
+            <div class="block-sub">Windows Forensics project work. Mon, Wed, Fri only. Free time on other days.</div>
+          </div>
+          <span class="block-tag tag-proj">PROJECT</span>
+        </div>
+      </div>
+
+      <div class="block b-sleep">
+        <div class="block-time">
+          <div class="time-main">10:30 PM</div>
+          <div class="time-dur">7.5 hrs</div>
+        </div>
+        <div class="block-content">
+          <div class="block-emoji">😴</div>
+          <div class="block-info">
+            <div class="block-title">Sleep — Non Negotiable</div>
+            <div class="block-sub">7-8 hours minimum. Sleep is when your brain consolidates everything you learned.</div>
+          </div>
+          <span class="block-tag tag-rest">SLEEP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SATURDAY -->
+  <div class="schedule" id="saturday">
+    <div class="day-label">
+      <span class="day-label-text">Saturday</span>
+      <span class="day-badge badge-college">HALF COLLEGE DAY</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block b-wake">
+        <div class="block-time"><div class="time-main">6:00 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">⏰</div>
+          <div class="block-info"><div class="block-title">Wake Up + Fresh Up</div><div class="block-sub">Same morning routine. Consistency matters.</div></div>
+          <span class="block-tag tag-rest">MORNING</span>
+        </div>
+      </div>
+
+      <div class="block b-cardio">
+        <div class="block-time"><div class="time-main">6:30 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🏃</div>
+          <div class="block-info"><div class="block-title">Cardio</div><div class="block-sub">Keep the streak going.</div></div>
+          <span class="block-tag tag-body">BODY</span>
+        </div>
+      </div>
+
+      <div class="block b-dsa">
+        <div class="block-time"><div class="time-main">7:00 AM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🧠</div>
+          <div class="block-info"><div class="block-title">DSA — Morning Slot</div><div class="block-sub">Solve 2-3 problems before breakfast.</div></div>
+          <span class="block-tag tag-dsa">DSA</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">8:00 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍳</div>
+          <div class="block-info"><div class="block-title">Breakfast</div><div class="block-sub">Fuel up for college.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-college">
+        <div class="block-time"><div class="time-main">9:00 AM</div><div class="time-dur">4 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🎓</div>
+          <div class="block-info"><div class="block-title">College Classes</div><div class="block-sub">Last day of college week. Be present and wrap up anything pending.</div></div>
+          <span class="block-tag tag-college">COLLEGE</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">1:00 PM</div><div class="time-dur">45 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍱</div>
+          <div class="block-info"><div class="block-title">Lunch + Proper Rest</div><div class="block-sub">You've earned a longer break today.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-sec">
+        <div class="block-time"><div class="time-main">1:45 PM</div><div class="time-dur">2 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🔐</div>
+          <div class="block-info"><div class="block-title">Cyber Security Deep Dive</div><div class="block-sub">Saturday = longer cyber sec session. LetsDefend investigations or TCM course.</div></div>
+          <span class="block-tag tag-sec">CYBER SEC</span>
+        </div>
+      </div>
+
+      <div class="block b-web">
+        <div class="block-time"><div class="time-main">3:45 PM</div><div class="time-dur">2 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🌐</div>
+          <div class="block-info"><div class="block-title">Web Dev</div><div class="block-sub">Continue course + push whatever you built this week to GitHub.</div></div>
+          <span class="block-tag tag-web">WEB DEV</span>
+        </div>
+      </div>
+
+      <div class="block b-proj">
+        <div class="block-time"><div class="time-main">5:45 PM</div><div class="time-dur">1.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🔍</div>
+          <div class="block-info"><div class="block-title">College Project — Weekly Work</div><div class="block-sub">Dedicated project session. Document progress. Sync with your partner.</div></div>
+          <span class="block-tag tag-proj">PROJECT</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">7:15 PM</div><div class="time-dur">45 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🚶</div>
+          <div class="block-info"><div class="block-title">Wind Down</div><div class="block-sub">Walk, chill, music. Week almost done.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">8:00 PM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍽️</div>
+          <div class="block-info"><div class="block-title">Dinner</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-github">
+        <div class="block-time"><div class="time-main">8:30 PM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">📊</div>
+          <div class="block-info"><div class="block-title">Weekly Review</div><div class="block-sub">Review the whole week. Update dashboard. Plan next week. GitHub push.</div></div>
+          <span class="block-tag tag-habit">WEEKLY</span>
+        </div>
+      </div>
+
+      <div class="block b-sleep">
+        <div class="block-time"><div class="time-main">10:00 PM</div><div class="time-dur">8 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">😴</div>
+          <div class="block-info"><div class="block-title">Sleep — Slightly Earlier</div><div class="block-sub">Recover well for Sunday's full day.</div></div>
+          <span class="block-tag tag-rest">SLEEP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUNDAY -->
+  <div class="schedule" id="sunday">
+    <div class="day-label">
+      <span class="day-label-text">Sunday</span>
+      <span class="day-badge badge-beast">FULL STUDY DAY</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block b-wake">
+        <div class="block-time"><div class="time-main">6:30 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">⏰</div>
+          <div class="block-info"><div class="block-title">Wake Up — Slightly Later</div><div class="block-sub">30 min extra sleep on Sunday. You earned it.</div></div>
+          <span class="block-tag tag-rest">MORNING</span>
+        </div>
+      </div>
+
+      <div class="block b-cardio">
+        <div class="block-time"><div class="time-main">7:00 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🏃</div>
+          <div class="block-info"><div class="block-title">Cardio — Longer Session</div><div class="block-sub">No rush today. Go for a longer run if you feel like it.</div></div>
+          <span class="block-tag tag-body">BODY</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">7:30 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍳</div>
+          <div class="block-info"><div class="block-title">Breakfast</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-dsa">
+        <div class="block-time"><div class="time-main">8:00 AM</div><div class="time-dur">2 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🧠</div>
+          <div class="block-info"><div class="block-title">DSA — Deep Session</div><div class="block-sub">Sunday = revision + harder problems. Revisit weak topics from the week.</div></div>
+          <span class="block-tag tag-dsa">DSA</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">10:00 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">☕</div>
+          <div class="block-info"><div class="block-title">Break</div><div class="block-sub">Tea. Stretch. Get away from screen briefly.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-web">
+        <div class="block-time"><div class="time-main">10:30 AM</div><div class="time-dur">2.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🌐</div>
+          <div class="block-info"><div class="block-title">Web Dev — Project Building</div><div class="block-sub">Sunday = build something. Apply the week's learning into a real project.</div></div>
+          <span class="block-tag tag-web">WEB DEV</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">1:00 PM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍱</div>
+          <div class="block-info"><div class="block-title">Lunch + Proper Rest</div><div class="block-sub">Full 1 hour break. Rest, call family, recharge.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-sec">
+        <div class="block-time"><div class="time-main">2:00 PM</div><div class="time-dur">2.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🔐</div>
+          <div class="block-info"><div class="block-title">Cyber Security — CTF / Practice</div><div class="block-sub">Sunday = hands on. CyberDefenders challenge or TryHackMe room. Write a writeup.</div></div>
+          <span class="block-tag tag-sec">CYBER SEC</span>
+        </div>
+      </div>
+
+      <div class="block b-proj">
+        <div class="block-time"><div class="time-main">4:30 PM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🔍</div>
+          <div class="block-info"><div class="block-title">College Project</div><div class="block-sub">Sunday = good day to work on the forensics project with fresh eyes.</div></div>
+          <span class="block-tag tag-proj">PROJECT</span>
+        </div>
+      </div>
+
+      <div class="block b-free">
+        <div class="block-time"><div class="time-main">5:30 PM</div><div class="time-dur">2 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🎮</div>
+          <div class="block-info"><div class="block-title">Free Time — Protected</div><div class="block-sub">This is yours. Watch something, game, call friends. No guilt. You worked hard.</div></div>
+          <span class="block-tag tag-rest">FREE</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">8:00 PM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍽️</div>
+          <div class="block-info"><div class="block-title">Dinner</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-github">
+        <div class="block-time"><div class="time-main">8:30 PM</div><div class="time-dur">45 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">📋</div>
+          <div class="block-info"><div class="block-title">Plan the Week Ahead</div><div class="block-sub">Set goals for Mon–Sat. Update dashboard. GitHub push. Sleep early.</div></div>
+          <span class="block-tag tag-habit">PLANNING</span>
+        </div>
+      </div>
+
+      <div class="block b-sleep">
+        <div class="block-time"><div class="time-main">10:00 PM</div><div class="time-dur">8 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">😴</div>
+          <div class="block-info"><div class="block-title">Sleep — Early to Win Monday</div><div class="block-sub">Best way to win Monday is to sleep early on Sunday.</div></div>
+          <span class="block-tag tag-rest">SLEEP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUMMER -->
+  <div class="schedule" id="summer">
+    <div class="day-label">
+      <span class="day-label-text">Summer Break — May & June</span>
+      <span class="day-badge badge-beast">BEAST MODE 🔥</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block b-wake">
+        <div class="block-time"><div class="time-main">5:30 AM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">⏰</div>
+          <div class="block-info"><div class="block-title">Wake Up Earlier</div><div class="block-sub">Summer = no college. Start 30 mins earlier to maximize the day.</div></div>
+          <span class="block-tag tag-rest">MORNING</span>
+        </div>
+      </div>
+
+      <div class="block b-cardio">
+        <div class="block-time"><div class="time-main">6:00 AM</div><div class="time-dur">45 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🏃</div>
+          <div class="block-info"><div class="block-title">Cardio — Longer Session</div><div class="block-sub">More time = better workout. Run + stretching.</div></div>
+          <span class="block-tag tag-body">BODY</span>
+        </div>
+      </div>
+
+      <div class="block b-dsa">
+        <div class="block-time"><div class="time-main">6:45 AM</div><div class="time-dur">1.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🧠</div>
+          <div class="block-info"><div class="block-title">DSA — Morning Power Session</div><div class="block-sub">Freshest brain. 4–5 problems. No mercy on yourself.</div></div>
+          <span class="block-tag tag-dsa">DSA</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">8:15 AM</div><div class="time-dur">45 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍳</div>
+          <div class="block-info"><div class="block-title">Breakfast + Fresh Up</div><div class="block-sub">Proper breakfast. Get ready for the day.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-web">
+        <div class="block-time"><div class="time-main">9:00 AM</div><div class="time-dur">3 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🌐</div>
+          <div class="block-info"><div class="block-title">Web Dev — Main Session</div><div class="block-sub">Course + build projects. Push everything to GitHub. 3 solid hours.</div></div>
+          <span class="block-tag tag-web">WEB DEV</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">12:00 PM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍱</div>
+          <div class="block-info"><div class="block-title">Lunch + Rest</div><div class="block-sub">Full rest. Nap if needed — 20 min max. Recharge for afternoon.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-sec">
+        <div class="block-time"><div class="time-main">1:00 PM</div><div class="time-dur">2.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🔐</div>
+          <div class="block-info"><div class="block-title">Cyber Security — Main Session</div><div class="block-sub">TCM SOC L1 + LetsDefend + CyberDefenders. Hands on every single day.</div></div>
+          <span class="block-tag tag-sec">CYBER SEC</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">3:30 PM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">☕</div>
+          <div class="block-info"><div class="block-title">Break</div><div class="block-sub">Walk, tea, music. Away from screen.</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-dsa">
+        <div class="block-time"><div class="time-main">4:00 PM</div><div class="time-dur">1.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🧠</div>
+          <div class="block-info"><div class="block-title">DSA — Second Session</div><div class="block-sub">Harder problems. Contest practice. Timed solving.</div></div>
+          <span class="block-tag tag-dsa">DSA</span>
+        </div>
+      </div>
+
+      <div class="block b-proj">
+        <div class="block-time"><div class="time-main">5:30 PM</div><div class="time-dur">1.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🔍</div>
+          <div class="block-info"><div class="block-title">College Project + Internship Applications</div><div class="block-sub">Project work + apply to internships on Internshala/LinkedIn daily.</div></div>
+          <span class="block-tag tag-proj">PROJECT</span>
+        </div>
+      </div>
+
+      <div class="block b-free">
+        <div class="block-time"><div class="time-main">7:00 PM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🎮</div>
+          <div class="block-info"><div class="block-title">Free Time</div><div class="block-sub">Protected. You work 9+ hours a day in summer — you deserve this.</div></div>
+          <span class="block-tag tag-rest">FREE</span>
+        </div>
+      </div>
+
+      <div class="block b-break">
+        <div class="block-time"><div class="time-main">8:00 PM</div><div class="time-dur">30 min</div></div>
+        <div class="block-content">
+          <div class="block-emoji">🍽️</div>
+          <div class="block-info"><div class="block-title">Dinner</div></div>
+          <span class="block-tag tag-rest">BREAK</span>
+        </div>
+      </div>
+
+      <div class="block b-github">
+        <div class="block-time"><div class="time-main">8:30 PM</div><div class="time-dur">1 hr</div></div>
+        <div class="block-content">
+          <div class="block-emoji">📝</div>
+          <div class="block-info"><div class="block-title">Review + Notes + GitHub</div><div class="block-sub">Document the day. Push code. Write one thing you learned. Plan tomorrow.</div></div>
+          <span class="block-tag tag-habit">HABIT</span>
+        </div>
+      </div>
+
+      <div class="block b-sleep">
+        <div class="block-time"><div class="time-main">10:00 PM</div><div class="time-dur">7.5 hrs</div></div>
+        <div class="block-content">
+          <div class="block-emoji">😴</div>
+          <div class="block-info"><div class="block-title">Sleep</div><div class="block-sub">Rest well. Tomorrow is another full day.</div></div>
+          <span class="block-tag tag-rest">SLEEP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- GOLDEN RULES -->
+  <div class="rules">
+    <div class="rules-title">// 8 GOLDEN RULES — READ THESE EVERY MORNING</div>
+    <div class="rules-grid">
+      <div class="rule"><span class="rule-num">01</span>No phone for first 30 mins after waking up. Start with cardio, not scrolling.</div>
+      <div class="rule"><span class="rule-num">02</span>DSA always gets the freshest brain slot. Never skip it, even if you solve just 1 problem.</div>
+      <div class="rule"><span class="rule-num">03</span>Push to GitHub every single day — even 10 lines of code counts. Build the streak.</div>
+      <div class="rule"><span class="rule-num">04</span>Don't just watch web dev — code along and build something every session.</div>
+      <div class="rule"><span class="rule-num">05</span>Write one short note on what you learned each day. You'll thank yourself later.</div>
+      <div class="rule"><span class="rule-num">06</span>Missing one slot is fine. Missing two in a row is a pattern. Catch it early.</div>
+      <div class="rule"><span class="rule-num">07</span>Sunday free time is protected and earned. Work hard Mon–Sat, rest without guilt.</div>
+      <div class="rule"><span class="rule-num">08</span>Sleep is not optional. A tired brain learns nothing. 7–8 hours minimum always.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.schedule').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
