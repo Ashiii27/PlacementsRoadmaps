@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ASH // DSA PLACEMENT SHEET</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#08080f;--bg2:#0d0d18;--bg3:#111120;--bg4:#161628;
+  --border:#1a1a2e;--border2:#252540;--border3:#303050;
+  --accent:#00ff88;--accent2:#00d4ff;--accent3:#ff6b35;
+  --purple:#a78bfa;--pink:#f472b6;
+  --red:#ff4757;--yellow:#ffd32a;--green:#00ff88;
+  --text:#dde1f0;--text2:#7878a0;--text3:#3a3a5c;
+  --easy:#00ff88;--med:#ffd32a;--hard:#ff4757;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 50% -10%,rgba(0,255,136,0.04),transparent);pointer-events:none;z-index:0;}
+
+.z1{position:relative;z-index:1;}
+
+/* HEADER */
+header{border-bottom:1px solid var(--border2);background:rgba(8,8,15,0.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;}
+.header-inner{max-width:1500px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;height:64px;}
+.logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center;gap:10px;}
+.logo-slash{color:var(--accent);margin:0 2px;}
+.logo-sub{font-size:10px;color:var(--text2);font-family:'JetBrains Mono',monospace;font-weight:400;letter-spacing:0.12em;background:var(--bg3);border:1px solid var(--border2);padding:2px 8px;border-radius:4px;}
+.header-stats{display:flex;gap:10px;align-items:center;}
+.stat-pill{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:6px 12px;font-size:11px;}
+.stat-num{font-size:17px;font-weight:700;font-family:'Syne',sans-serif;}
+.stat-label{color:var(--text2);}
+.stat-pill.g .stat-num{color:var(--easy);}
+.stat-pill.y .stat-num{color:var(--yellow);}
+.stat-pill.r .stat-num{color:var(--hard);}
+
+/* TOOLBAR */
+.toolbar{max-width:1500px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+.search-wrap{position:relative;flex:1;min-width:220px;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;}
+.search-box{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;padding:9px 12px 9px 34px;color:var(--text);font-family:inherit;font-size:12px;outline:none;transition:border-color .2s,box-shadow .2s;}
+.search-box::placeholder{color:var(--text3);}
+.search-box:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,255,136,.07);}
+select.flt{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-family:inherit;font-size:11px;padding:9px 12px;border-radius:7px;cursor:pointer;outline:none;transition:border-color .2s;}
+select.flt:focus{border-color:var(--accent2);color:var(--text);}
+.btn-add{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;padding:9px 18px;border-radius:7px;cursor:pointer;transition:all .2s;letter-spacing:.05em;white-space:nowrap;}
+.btn-add:hover{background:#00e87a;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,255,136,.3);}
+.progress-bar-global{height:3px;background:var(--border);position:relative;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--purple));transition:width .5s ease;}
+
+/* MAIN */
+.main{max-width:1500px;margin:0 auto;padding:20px 24px 80px;}
+
+/* TOPIC BLOCK */
+.topic-block{margin-bottom:20px;border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .25s;}
+.topic-block:hover{border-color:var(--border2);}
+.topic-block.open{border-color:var(--border2);}
+
+.topic-header{background:var(--bg2);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .2s;}
+.topic-header:hover{background:var(--bg3);}
+.th-left{display:flex;align-items:center;gap:14px;}
+.topic-icon-wrap{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.topic-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.topic-count{font-size:10px;color:var(--text3);background:var(--bg4);border:1px solid var(--border);padding:2px 8px;border-radius:20px;}
+.th-right{display:flex;align-items:center;gap:16px;}
+.tp-stats{display:flex;gap:8px;font-size:10px;}
+.tp-stat-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px;}
+.mini-bar{width:80px;height:3px;background:var(--border2);border-radius:2px;overflow:hidden;}
+.mini-bar-fill{height:100%;border-radius:2px;transition:width .4s ease;}
+.chevron{color:var(--text3);font-size:11px;transition:transform .3s;}
+.topic-block.open .chevron{transform:rotate(180deg);}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;display:none;}
+.topic-block.open .table-wrap{display:block;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--bg);padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:64px;z-index:2;}
+td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle;transition:background .12s;}
+tr:last-child td{border-bottom:none;}
+tr.prob-row:hover td{background:rgba(255,255,255,.018);}
+
+/* STATUS */
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.07em;cursor:pointer;transition:all .2s;white-space:nowrap;user-select:none;}
+.st-unsolved{background:rgba(58,58,92,.25);color:var(--text3);border:1px solid var(--border2);}
+.st-attempted{background:rgba(255,211,42,.08);color:var(--yellow);border:1px solid rgba(255,211,42,.25);}
+.st-solved{background:rgba(0,255,136,.08);color:var(--green);border:1px solid rgba(0,255,136,.25);}
+.status-badge:hover{filter:brightness(1.3);}
+
+/* DIFF */
+.diff{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.06em;}
+.de{color:var(--easy);background:rgba(0,255,136,.07);}
+.dm{color:var(--yellow);background:rgba(255,211,42,.07);}
+.dh{color:var(--hard);background:rgba(255,71,87,.07);}
+
+/* PROBLEM LINK */
+.prob-link{color:var(--text);text-decoration:none;font-weight:500;transition:color .15s;}
+.prob-link:hover{color:var(--accent2);}
+.prob-num{color:var(--text3);font-size:10px;width:28px;display:inline-block;flex-shrink:0;}
+
+/* TAGS */
+.tags{display:flex;gap:3px;flex-wrap:wrap;}
+.ctag{background:rgba(0,212,255,.06);color:var(--accent2);border:1px solid rgba(0,212,255,.12);padding:1px 6px;border-radius:3px;font-size:9px;white-space:nowrap;}
+.concept-tag{background:rgba(255,107,53,.06);color:var(--accent3);border:1px solid rgba(255,107,53,.12);padding:1px 6px;border-radius:3px;font-size:9px;white-space:nowrap;}
+.none{color:var(--text3);font-size:11px;}
+
+/* NOTES */
+.notes-cell{max-width:180px;color:var(--text2);font-size:10px;font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;}
+.notes-cell:hover{color:var(--accent2);}
+
+/* ACTION BUTTONS */
+.act-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);padding:4px 8px;border-radius:4px;font-size:10px;cursor:pointer;transition:all .2s;font-family:inherit;}
+.act-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+.act-btn.del:hover{border-color:var(--red);color:var(--red);}
+.act-btns{display:flex;gap:4px;}
+
+/* EMPTY */
+.empty-row td{text-align:center;padding:24px;color:var(--text3);font-size:11px;}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .22s;}
+.overlay.on{opacity:1;pointer-events:all;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;width:540px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:28px;transform:translateY(16px);transition:transform .22s;box-shadow:0 32px 100px rgba(0,0,0,.7);}
+.overlay.on .modal{transform:translateY(0);}
+.modal-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:22px;color:var(--accent);display:flex;align-items:center;gap:9px;}
+.form-grid{display:grid;gap:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+label{display:flex;flex-direction:column;gap:5px;font-size:10px;color:var(--text2);letter-spacing:.07em;text-transform:uppercase;font-weight:600;}
+input[type=text],input[type=url],textarea,select.fs{background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:inherit;font-size:12px;padding:9px 11px;border-radius:6px;outline:none;transition:border-color .18s;width:100%;}
+input:focus,textarea:focus,select.fs:focus{border-color:var(--accent);}
+textarea{resize:vertical;min-height:68px;line-height:1.5;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:22px;}
+.btn-cancel{background:transparent;border:1px solid var(--border2);color:var(--text2);font-family:'Syne',sans-serif;font-weight:600;font-size:12px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.btn-cancel:hover{border-color:var(--text2);color:var(--text);}
+.btn-save{background:var(--accent);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;padding:8px 22px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;}
+.btn-save:hover{background:#00e07a;}
+.notes-full{font-size:13px;color:var(--text);line-height:1.75;white-space:pre-wrap;}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:11px;padding:9px 16px;border-radius:6px;z-index:200;transform:translateY(14px);opacity:0;transition:all .25s;pointer-events:none;display:flex;align-items:center;gap:8px;}
+.toast.on{transform:translateY(0);opacity:1;}
+.toast-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--border3);}
+
+@media(max-width:768px){
+  .header-stats{gap:6px;}.stat-pill{padding:5px 8px;}.form-row{grid-template-columns:1fr;}
+  .tp-stats{display:none;}.mini-bar{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner z1">
+    <div class="logo">
+      ASH<span class="logo-slash">//</span>DSA
+      <span class="logo-sub">PLACEMENT SHEET</span>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill g"><span class="stat-num" id="s-solved">0</span><span class="stat-label">Solved</span></div>
+      <div class="stat-pill y"><span class="stat-num" id="s-attempted">0</span><span class="stat-label">Tried</span></div>
+      <div class="stat-pill r"><span class="stat-num" id="s-unsolved">0</span><span class="stat-label">Todo</span></div>
+      <div class="stat-pill"><span class="stat-num" id="s-total">0</span><span class="stat-label">Total</span></div>
+    </div>
+  </div>
+  <div class="progress-bar-global z1"><div class="progress-bar-fill" id="globalBar" style="width:0%"></div></div>
+</header>
+
+<div class="toolbar z1">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-box" type="text" id="searchInput" placeholder="Search problems, companies, concepts... (Ctrl+K)"/>
+  </div>
+  <select class="flt" id="filterStatus" onchange="render()">
+    <option value="">All Status</option>
+    <option value="unsolved">Unsolved</option>
+    <option value="attempted">Attempted</option>
+    <option value="solved">Solved</option>
+  </select>
+  <select class="flt" id="filterDiff" onchange="render()">
+    <option value="">All Difficulty</option>
+    <option value="Easy">Easy</option>
+    <option value="Medium">Medium</option>
+    <option value="Hard">Hard</option>
+  </select>
+  <select class="flt" id="filterTopic" onchange="render()">
+    <option value="">All Topics</option>
+  </select>
+  <button class="btn-add" onclick="openAdd()">+ ADD PROBLEM</button>
+</div>
+
+<div class="main z1" id="main"></div>
+
+<!-- FORM MODAL -->
+<div class="overlay" id="formOverlay">
+  <div class="modal">
+    <div class="modal-title" id="formTitle">⚡ ADD PROBLEM</div>
+    <div class="form-grid">
+      <label>Problem Name *<input type="text" id="f-name" placeholder="Two Sum"/></label>
+      <label>Problem URL<input type="url" id="f-url" placeholder="https://leetcode.com/problems/..."/></label>
+      <div class="form-row">
+        <label>Difficulty
+          <select class="fs" id="f-diff"><option>Easy</option><option selected>Medium</option><option>Hard</option></select>
+        </label>
+        <label>Status
+          <select class="fs" id="f-status">
+            <option value="unsolved">Unsolved</option>
+            <option value="attempted">Attempted</option>
+            <option value="solved">Solved</option>
+          </select>
+        </label>
+      </div>
+      <label>Topic *
+        <select class="fs" id="f-topic"></select>
+      </label>
+      <label>Concept / Pattern<input type="text" id="f-concept" placeholder="e.g. Kadane's Algorithm, Two Pointers"/></label>
+      <label>Companies (comma separated)<input type="text" id="f-companies" placeholder="Amazon, Google, Microsoft"/></label>
+      <label>Notes / Approach<textarea id="f-notes" placeholder="Key insight, time complexity, edge cases..."></textarea></label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeOverlay('formOverlay')">Cancel</button>
+      <button class="btn-save" onclick="saveProblem()">SAVE PROBLEM</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTES MODAL -->
+<div class="overlay" id="notesOverlay">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title" id="notesTitle">📝 NOTES</div>
+    <div class="notes-full" id="notesContent"></div>
+    <div class="modal-actions" style="margin-top:18px">
+      <button class="btn-save" onclick="closeOverlay('notesOverlay')">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="toast-dot"></span><span id="toast-msg"></span></div>
+
+<script>
+// ─── SEED DATA ────────────────────────────────────────────────────────────────
+const SEED = [
+// ARRAYS
+{id:'a001',name:'Two Sum',url:'https://leetcode.com/problems/two-sum/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'Hash Map',companies:['Amazon','Google','Microsoft','Adobe','Facebook','Apple'],notes:''},
+{id:'a002',name:'Best Time to Buy and Sell Stock',url:'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'Greedy / Track Min',companies:['Amazon','Microsoft','Goldman Sachs'],notes:''},
+{id:'a003',name:'Maximum Subarray',url:'https://leetcode.com/problems/maximum-subarray/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:"Kadane's Algorithm",companies:['Amazon','Google','Microsoft','Adobe','LinkedIn'],notes:''},
+{id:'a004',name:'Contains Duplicate',url:'https://leetcode.com/problems/contains-duplicate/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'Hash Set',companies:['Amazon','Google','Palantir','Apple'],notes:''},
+{id:'a005',name:'Product of Array Except Self',url:'https://leetcode.com/problems/product-of-array-except-self/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Prefix & Suffix Product',companies:['Amazon','Facebook','Microsoft','Lyft'],notes:''},
+{id:'a006',name:'Maximum Product Subarray',url:'https://leetcode.com/problems/maximum-product-subarray/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Track Min/Max Product',companies:['Amazon','Google','Microsoft','LinkedIn'],notes:''},
+{id:'a007',name:'Find Minimum in Rotated Sorted Array',url:'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Binary Search on Rotated',companies:['Amazon','Microsoft','Facebook'],notes:''},
+{id:'a008',name:'Search in Rotated Sorted Array',url:'https://leetcode.com/problems/search-in-rotated-sorted-array/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Modified Binary Search',companies:['Amazon','Google','Microsoft','Facebook','Uber'],notes:''},
+{id:'a009',name:'Container With Most Water',url:'https://leetcode.com/problems/container-with-most-water/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Two Pointers',companies:['Amazon','Google','Adobe','Goldman Sachs'],notes:''},
+{id:'a010',name:'3Sum',url:'https://leetcode.com/problems/3sum/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Sort + Two Pointers',companies:['Amazon','Google','Microsoft','Facebook','Adobe'],notes:''},
+{id:'a011',name:'Move Zeroes',url:'https://leetcode.com/problems/move-zeroes/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'Two Pointers In-place',companies:['Amazon','Facebook','Microsoft','Adobe'],notes:''},
+{id:'a012',name:'Rotate Array',url:'https://leetcode.com/problems/rotate-array/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Reversal Algorithm',companies:['Amazon','Microsoft','Flipkart'],notes:''},
+{id:'a013',name:'Sort Colors',url:'https://leetcode.com/problems/sort-colors/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Dutch National Flag (3-Way Partition)',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'a014',name:'Majority Element',url:'https://leetcode.com/problems/majority-element/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'Boyer-Moore Voting Algorithm',companies:['Amazon','Google','Adobe','TCS','Infosys'],notes:''},
+{id:'a015',name:'Missing Number',url:'https://leetcode.com/problems/missing-number/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'XOR / Gauss Sum',companies:['Amazon','Microsoft','Adobe','TCS'],notes:''},
+{id:'a016',name:'Find the Duplicate Number',url:'https://leetcode.com/problems/find-the-duplicate-number/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:"Floyd's Cycle Detection",companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'a017',name:'Merge Intervals',url:'https://leetcode.com/problems/merge-intervals/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Sort + Greedy Merge',companies:['Amazon','Google','Microsoft','Facebook','Twitter'],notes:''},
+{id:'a018',name:'Insert Interval',url:'https://leetcode.com/problems/insert-interval/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Linear Scan Merge',companies:['Google','Amazon','LinkedIn'],notes:''},
+{id:'a019',name:'Spiral Matrix',url:'https://leetcode.com/problems/spiral-matrix/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Layer Peeling / Direction Array',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'a020',name:'Set Matrix Zeroes',url:'https://leetcode.com/problems/set-matrix-zeroes/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'In-place Flag Marking',companies:['Amazon','Microsoft','Adobe','Walmart'],notes:''},
+{id:'a021',name:"Pascal's Triangle",url:'https://leetcode.com/problems/pascals-triangle/',topic:'Arrays',diff:'Easy',status:'unsolved',concept:'Row by Row Construction',companies:['Amazon','Google','Adobe'],notes:''},
+{id:'a022',name:'Subarray Sum Equals K',url:'https://leetcode.com/problems/subarray-sum-equals-k/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Prefix Sum + HashMap',companies:['Amazon','Google','Facebook','Lyft'],notes:''},
+{id:'a023',name:'Trapping Rain Water',url:'https://leetcode.com/problems/trapping-rain-water/',topic:'Arrays',diff:'Hard',status:'unsolved',concept:'Two Pointers / Stack',companies:['Amazon','Google','Microsoft','Facebook','Adobe','Goldman Sachs'],notes:''},
+{id:'a024',name:'Longest Consecutive Sequence',url:'https://leetcode.com/problems/longest-consecutive-sequence/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Hash Set O(n)',companies:['Amazon','Google','Facebook','Airbnb'],notes:''},
+{id:'a025',name:'First Missing Positive',url:'https://leetcode.com/problems/first-missing-positive/',topic:'Arrays',diff:'Hard',status:'unsolved',concept:'Index as Hash / Cycle Sort',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'a026',name:'Next Permutation',url:'https://leetcode.com/problems/next-permutation/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Suffix Scan + Swap + Reverse',companies:['Amazon','Microsoft','Google'],notes:''},
+{id:'a027',name:'Jump Game',url:'https://leetcode.com/problems/jump-game/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Greedy Max Reach',companies:['Amazon','Google','Adobe'],notes:''},
+{id:'a028',name:'Jump Game II',url:'https://leetcode.com/problems/jump-game-ii/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Greedy BFS Levels',companies:['Amazon','Google'],notes:''},
+{id:'a029',name:'Maximum Sum Circular Subarray',url:'https://leetcode.com/problems/maximum-sum-circular-subarray/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:"Kadane's + Total - Min Subarray",companies:['Amazon','Google'],notes:''},
+{id:'a030',name:'Gas Station',url:'https://leetcode.com/problems/gas-station/',topic:'Arrays',diff:'Medium',status:'unsolved',concept:'Greedy Start Point',companies:['Amazon','Google','Bloomberg'],notes:''},
+// STRINGS
+{id:'s001',name:'Valid Anagram',url:'https://leetcode.com/problems/valid-anagram/',topic:'Strings',diff:'Easy',status:'unsolved',concept:'Frequency Count / Sort',companies:['Amazon','Google','Facebook','Adobe'],notes:''},
+{id:'s002',name:'Valid Palindrome',url:'https://leetcode.com/problems/valid-palindrome/',topic:'Strings',diff:'Easy',status:'unsolved',concept:'Two Pointers',companies:['Amazon','Facebook','Microsoft'],notes:''},
+{id:'s003',name:'Group Anagrams',url:'https://leetcode.com/problems/group-anagrams/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Sort Key / Freq Key HashMap',companies:['Amazon','Google','Facebook','Uber','Bloomberg'],notes:''},
+{id:'s004',name:'Longest Palindromic Substring',url:'https://leetcode.com/problems/longest-palindromic-substring/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Expand Around Center',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'s005',name:'Palindromic Substrings',url:'https://leetcode.com/problems/palindromic-substrings/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Expand Around Center',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'s006',name:'Minimum Window Substring',url:'https://leetcode.com/problems/minimum-window-substring/',topic:'Strings',diff:'Hard',status:'unsolved',concept:'Sliding Window + Frequency',companies:['Amazon','Google','Facebook','LinkedIn'],notes:''},
+{id:'s007',name:'Roman to Integer',url:'https://leetcode.com/problems/roman-to-integer/',topic:'Strings',diff:'Easy',status:'unsolved',concept:'HashMap + Greedy',companies:['Amazon','Microsoft','Adobe','TCS'],notes:''},
+{id:'s008',name:'String to Integer (atoi)',url:'https://leetcode.com/problems/string-to-integer-atoi/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Edge Case Parsing',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'s009',name:'Longest Common Prefix',url:'https://leetcode.com/problems/longest-common-prefix/',topic:'Strings',diff:'Easy',status:'unsolved',concept:'Vertical Scanning',companies:['Amazon','Google','Adobe'],notes:''},
+{id:'s010',name:'Reverse Words in a String',url:'https://leetcode.com/problems/reverse-words-in-a-string/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Split + Reverse',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'s011',name:'Largest Number',url:'https://leetcode.com/problems/largest-number/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Custom Comparator Sort',companies:['Amazon','Google'],notes:''},
+{id:'s012',name:'Multiply Strings',url:'https://leetcode.com/problems/multiply-strings/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Big Integer Multiplication',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'s013',name:'Valid Parentheses',url:'https://leetcode.com/problems/valid-parentheses/',topic:'Strings',diff:'Easy',status:'unsolved',concept:'Stack Matching',companies:['Amazon','Google','Facebook','Adobe','Microsoft'],notes:''},
+{id:'s014',name:'Find All Anagrams in a String',url:'https://leetcode.com/problems/find-all-anagrams-in-a-string/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Fixed Sliding Window',companies:['Amazon','Google','Adobe'],notes:''},
+{id:'s015',name:'Permutation in String',url:'https://leetcode.com/problems/permutation-in-string/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Fixed Sliding Window',companies:['Amazon','Microsoft'],notes:''},
+{id:'s016',name:'Decode String',url:'https://leetcode.com/problems/decode-string/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Stack Nested Decoding',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'s017',name:'Count and Say',url:'https://leetcode.com/problems/count-and-say/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Simulation RLE',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'s018',name:'Zigzag Conversion',url:'https://leetcode.com/problems/zigzag-conversion/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Row Direction Simulation',companies:['Amazon','Adobe'],notes:''},
+{id:'s019',name:'Integer to Roman',url:'https://leetcode.com/problems/integer-to-roman/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Greedy Lookup Table',companies:['Amazon','Adobe'],notes:''},
+{id:'s020',name:'Compare Version Numbers',url:'https://leetcode.com/problems/compare-version-numbers/',topic:'Strings',diff:'Medium',status:'unsolved',concept:'Split + Integer Parse',companies:['Amazon','Flipkart'],notes:''},
+// SLIDING WINDOW
+{id:'sw001',name:'Longest Substring Without Repeating Characters',url:'https://leetcode.com/problems/longest-substring-without-repeating-characters/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Variable Window + Last Index Map',companies:['Amazon','Google','Facebook','Microsoft','Adobe'],notes:''},
+{id:'sw002',name:'Longest Repeating Character Replacement',url:'https://leetcode.com/problems/longest-repeating-character-replacement/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Max Frequency in Window',companies:['Amazon','Google'],notes:''},
+{id:'sw003',name:'Sliding Window Maximum',url:'https://leetcode.com/problems/sliding-window-maximum/',topic:'Sliding Window',diff:'Hard',status:'unsolved',concept:'Monotonic Deque',companies:['Amazon','Google','Microsoft','Goldman Sachs'],notes:''},
+{id:'sw004',name:'Maximum Average Subarray I',url:'https://leetcode.com/problems/maximum-average-subarray-i/',topic:'Sliding Window',diff:'Easy',status:'unsolved',concept:'Fixed Window Sum',companies:['Amazon','Adobe'],notes:''},
+{id:'sw005',name:'Max Consecutive Ones III',url:'https://leetcode.com/problems/max-consecutive-ones-iii/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Variable Window with Budget K',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'sw006',name:'Fruit Into Baskets',url:'https://leetcode.com/problems/fruit-into-baskets/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'At Most 2 Distinct Window',companies:['Amazon','Google'],notes:''},
+{id:'sw007',name:'Minimum Size Subarray Sum',url:'https://leetcode.com/problems/minimum-size-subarray-sum/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Variable Shrink Window',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'sw008',name:'Number of Substrings Containing All Three Characters',url:'https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Last Seen Index Trick',companies:['Google'],notes:''},
+{id:'sw009',name:'Subarray Product Less Than K',url:'https://leetcode.com/problems/subarray-product-less-than-k/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Variable Window Product',companies:['Amazon','Goldman Sachs'],notes:''},
+{id:'sw010',name:'Longest Subarray of 1s After Deleting One Element',url:'https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/',topic:'Sliding Window',diff:'Medium',status:'unsolved',concept:'Window with At Most 1 Zero',companies:['Amazon','Google'],notes:''},
+// TWO POINTERS
+{id:'tp001',name:'Valid Palindrome II',url:'https://leetcode.com/problems/valid-palindrome-ii/',topic:'Two Pointers',diff:'Easy',status:'unsolved',concept:'Two Pointers Allow One Skip',companies:['Facebook','Amazon'],notes:''},
+{id:'tp002',name:'Two Sum II - Input Array Is Sorted',url:'https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/',topic:'Two Pointers',diff:'Medium',status:'unsolved',concept:'Classic Two Pointers',companies:['Amazon','Microsoft'],notes:''},
+{id:'tp003',name:'4Sum',url:'https://leetcode.com/problems/4sum/',topic:'Two Pointers',diff:'Medium',status:'unsolved',concept:'Sort + Two Pointers Extension of 3Sum',companies:['Amazon','Google'],notes:''},
+{id:'tp004',name:'Remove Duplicates from Sorted Array',url:'https://leetcode.com/problems/remove-duplicates-from-sorted-array/',topic:'Two Pointers',diff:'Easy',status:'unsolved',concept:'Slow/Fast Pointer In-place',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'tp005',name:'Squares of a Sorted Array',url:'https://leetcode.com/problems/squares-of-a-sorted-array/',topic:'Two Pointers',diff:'Easy',status:'unsolved',concept:'Two Pointer from Both Ends',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'tp006',name:'Boats to Save People',url:'https://leetcode.com/problems/boats-to-save-people/',topic:'Two Pointers',diff:'Medium',status:'unsolved',concept:'Greedy Two Pointer',companies:['Amazon','Goldman Sachs'],notes:''},
+{id:'tp007',name:'Partition Array Into Two Equal Sum Subsets',url:'https://leetcode.com/problems/partition-equal-subset-sum/',topic:'Two Pointers',diff:'Medium',status:'unsolved',concept:'DP / Subset Sum',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'tp008',name:'Trapping Rain Water (Two Pointer)',url:'https://leetcode.com/problems/trapping-rain-water/',topic:'Two Pointers',diff:'Hard',status:'unsolved',concept:'Two Pointer O(1) Space',companies:['Amazon','Google','Goldman Sachs','Microsoft'],notes:''},
+// BINARY SEARCH
+{id:'bs001',name:'Binary Search',url:'https://leetcode.com/problems/binary-search/',topic:'Binary Search',diff:'Easy',status:'unsolved',concept:'Classic Template lo/hi/mid',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'bs002',name:'Search a 2D Matrix',url:'https://leetcode.com/problems/search-a-2d-matrix/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'Treat Matrix as 1D Array',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'bs003',name:'Koko Eating Bananas',url:'https://leetcode.com/problems/koko-eating-bananas/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'Binary Search on Answer',companies:['Amazon','Google'],notes:''},
+{id:'bs004',name:'Find Peak Element',url:'https://leetcode.com/problems/find-peak-element/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'BS on Monotonic Property',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'bs005',name:'Find K Closest Elements',url:'https://leetcode.com/problems/find-k-closest-elements/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'BS + Sliding Window',companies:['Google','Amazon','LinkedIn'],notes:''},
+{id:'bs006',name:'Capacity To Ship Packages Within D Days',url:'https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'Binary Search on Answer',companies:['Amazon','Google'],notes:''},
+{id:'bs007',name:'Median of Two Sorted Arrays',url:'https://leetcode.com/problems/median-of-two-sorted-arrays/',topic:'Binary Search',diff:'Hard',status:'unsolved',concept:'Partition Binary Search',companies:['Amazon','Google','Microsoft','Goldman Sachs','Morgan Stanley'],notes:''},
+{id:'bs008',name:'Aggressive Cows',url:'https://www.geeksforgeeks.org/assign-stalls-to-k-cows-to-maximize-the-minimum-distance-between-them/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'BS on Answer - Maximize Minimum',companies:['Amazon','Flipkart','Walmart'],notes:''},
+{id:'bs009',name:'Allocate Minimum Pages',url:'https://www.geeksforgeeks.org/allocate-minimum-number-pages/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'BS on Answer - Minimize Maximum',companies:['Amazon','Flipkart','Adobe'],notes:''},
+{id:'bs010',name:'Sqrt(x)',url:'https://leetcode.com/problems/sqrtx/',topic:'Binary Search',diff:'Easy',status:'unsolved',concept:'Integer Square Root via BS',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'bs011',name:'Single Element in a Sorted Array',url:'https://leetcode.com/problems/single-element-in-a-sorted-array/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'XOR Index Parity BS',companies:['Amazon','Google'],notes:''},
+{id:'bs012',name:'Search in Rotated Sorted Array II',url:'https://leetcode.com/problems/search-in-rotated-sorted-array-ii/',topic:'Binary Search',diff:'Medium',status:'unsolved',concept:'Modified BS Handling Duplicates',companies:['Amazon','Microsoft'],notes:''},
+// LINKED LIST
+{id:'ll001',name:'Reverse Linked List',url:'https://leetcode.com/problems/reverse-linked-list/',topic:'Linked List',diff:'Easy',status:'unsolved',concept:'Iterative Pointer Reversal',companies:['Amazon','Google','Adobe','Microsoft','Facebook'],notes:''},
+{id:'ll002',name:'Merge Two Sorted Lists',url:'https://leetcode.com/problems/merge-two-sorted-lists/',topic:'Linked List',diff:'Easy',status:'unsolved',concept:'Two Pointer Merge with Dummy',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'ll003',name:'Linked List Cycle',url:'https://leetcode.com/problems/linked-list-cycle/',topic:'Linked List',diff:'Easy',status:'unsolved',concept:"Floyd's Tortoise and Hare",companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'ll004',name:'Linked List Cycle II',url:'https://leetcode.com/problems/linked-list-cycle-ii/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:"Floyd's - Math Entry Point",companies:['Amazon','Microsoft'],notes:''},
+{id:'ll005',name:'Remove Nth Node From End',url:'https://leetcode.com/problems/remove-nth-node-from-end-of-list/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'Two Pointer with N Gap',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'ll006',name:'Reorder List',url:'https://leetcode.com/problems/reorder-list/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'Find Mid + Reverse Half + Merge',companies:['Amazon','Microsoft'],notes:''},
+{id:'ll007',name:'LRU Cache',url:'https://leetcode.com/problems/lru-cache/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'Doubly LL + HashMap O(1)',companies:['Amazon','Google','Microsoft','Facebook','Adobe','Flipkart'],notes:''},
+{id:'ll008',name:'Sort List',url:'https://leetcode.com/problems/sort-list/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'Merge Sort on Linked List',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'ll009',name:'Merge K Sorted Lists',url:'https://leetcode.com/problems/merge-k-sorted-lists/',topic:'Linked List',diff:'Hard',status:'unsolved',concept:'Min Heap / Divide and Conquer',companies:['Amazon','Google','Facebook','Microsoft','Uber'],notes:''},
+{id:'ll010',name:'Intersection of Two Linked Lists',url:'https://leetcode.com/problems/intersection-of-two-linked-lists/',topic:'Linked List',diff:'Easy',status:'unsolved',concept:'Length Equalization Trick',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'ll011',name:'Palindrome Linked List',url:'https://leetcode.com/problems/palindrome-linked-list/',topic:'Linked List',diff:'Easy',status:'unsolved',concept:'Find Mid + Reverse + Compare',companies:['Amazon','Facebook','Adobe'],notes:''},
+{id:'ll012',name:'Add Two Numbers',url:'https://leetcode.com/problems/add-two-numbers/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'Carry Propagation Traversal',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'ll013',name:'Copy List with Random Pointer',url:'https://leetcode.com/problems/copy-list-with-random-pointer/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'HashMap Clone / Interweaving',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'ll014',name:'Reverse Nodes in k-Group',url:'https://leetcode.com/problems/reverse-nodes-in-k-group/',topic:'Linked List',diff:'Hard',status:'unsolved',concept:'Recursive Group Reversal',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'ll015',name:'Odd Even Linked List',url:'https://leetcode.com/problems/odd-even-linked-list/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'In-place Odd/Even Regrouping',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'ll016',name:'Flatten Multilevel Doubly Linked List',url:'https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/',topic:'Linked List',diff:'Medium',status:'unsolved',concept:'DFS/Stack Flattening',companies:['Amazon','Microsoft'],notes:''},
+// STACK & QUEUE
+{id:'sq001',name:'Min Stack',url:'https://leetcode.com/problems/min-stack/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Auxiliary Min Stack',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'sq002',name:'Evaluate Reverse Polish Notation',url:'https://leetcode.com/problems/evaluate-reverse-polish-notation/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Stack Operand Simulation',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'sq003',name:'Generate Parentheses',url:'https://leetcode.com/problems/generate-parentheses/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Backtracking Open/Close Count',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'sq004',name:'Daily Temperatures',url:'https://leetcode.com/problems/daily-temperatures/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Monotonic Decreasing Stack',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'sq005',name:'Largest Rectangle in Histogram',url:'https://leetcode.com/problems/largest-rectangle-in-histogram/',topic:'Stack & Queue',diff:'Hard',status:'unsolved',concept:'Monotonic Stack Left/Right Limits',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'sq006',name:'Maximal Rectangle',url:'https://leetcode.com/problems/maximal-rectangle/',topic:'Stack & Queue',diff:'Hard',status:'unsolved',concept:'Histogram Stack Per Row',companies:['Amazon','Google'],notes:''},
+{id:'sq007',name:'Next Greater Element II',url:'https://leetcode.com/problems/next-greater-element-ii/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Circular Array Monotonic Stack',companies:['Amazon','Adobe'],notes:''},
+{id:'sq008',name:'Asteroid Collision',url:'https://leetcode.com/problems/asteroid-collision/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Stack Collision Simulation',companies:['Amazon','Google'],notes:''},
+{id:'sq009',name:'Decode String',url:'https://leetcode.com/problems/decode-string/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Stack Nested Decode',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'sq010',name:'Implement Queue using Stacks',url:'https://leetcode.com/problems/implement-queue-using-stacks/',topic:'Stack & Queue',diff:'Easy',status:'unsolved',concept:'Amortized O(1) Two Stack',companies:['Amazon','Adobe'],notes:''},
+{id:'sq011',name:'Car Fleet',url:'https://leetcode.com/problems/car-fleet/',topic:'Stack & Queue',diff:'Medium',status:'unsolved',concept:'Sort + Stack Fleet Merge',companies:['Google'],notes:''},
+{id:'sq012',name:'Trapping Rain Water (Stack)',url:'https://leetcode.com/problems/trapping-rain-water/',topic:'Stack & Queue',diff:'Hard',status:'unsolved',concept:'Monotonic Stack Water Levels',companies:['Amazon','Google','Facebook','Adobe'],notes:''},
+// TREES
+{id:'t001',name:'Invert Binary Tree',url:'https://leetcode.com/problems/invert-binary-tree/',topic:'Trees',diff:'Easy',status:'unsolved',concept:'DFS Swap Left/Right',companies:['Amazon','Google','Facebook','Apple'],notes:''},
+{id:'t002',name:'Maximum Depth of Binary Tree',url:'https://leetcode.com/problems/maximum-depth-of-binary-tree/',topic:'Trees',diff:'Easy',status:'unsolved',concept:'DFS / BFS Height',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'t003',name:'Diameter of Binary Tree',url:'https://leetcode.com/problems/diameter-of-binary-tree/',topic:'Trees',diff:'Easy',status:'unsolved',concept:'Post-order DFS Track Max',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'t004',name:'Balanced Binary Tree',url:'https://leetcode.com/problems/balanced-binary-tree/',topic:'Trees',diff:'Easy',status:'unsolved',concept:'Height-based DFS Return -1',companies:['Amazon','Microsoft','Adobe'],notes:''},
+{id:'t005',name:'Same Tree',url:'https://leetcode.com/problems/same-tree/',topic:'Trees',diff:'Easy',status:'unsolved',concept:'Simultaneous DFS Comparison',companies:['Amazon','Google'],notes:''},
+{id:'t006',name:'Subtree of Another Tree',url:'https://leetcode.com/problems/subtree-of-another-tree/',topic:'Trees',diff:'Easy',status:'unsolved',concept:'Same Tree as Subroutine',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'t007',name:'Lowest Common Ancestor of BST',url:'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'BST Property Split Navigation',companies:['Amazon','Microsoft','LinkedIn','Facebook'],notes:''},
+{id:'t008',name:'Binary Tree Level Order Traversal',url:'https://leetcode.com/problems/binary-tree-level-order-traversal/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'BFS with Queue Level Groups',companies:['Amazon','Google','Microsoft','Facebook','Adobe'],notes:''},
+{id:'t009',name:'Binary Tree Right Side View',url:'https://leetcode.com/problems/binary-tree-right-side-view/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'BFS Last Node Per Level',companies:['Amazon','Facebook','Microsoft'],notes:''},
+{id:'t010',name:'Count Good Nodes in Binary Tree',url:'https://leetcode.com/problems/count-good-nodes-in-binary-tree/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'DFS Pass Max Ancestor',companies:['Amazon','Google'],notes:''},
+{id:'t011',name:'Validate Binary Search Tree',url:'https://leetcode.com/problems/validate-binary-search-tree/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'DFS with Min/Max Range',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'t012',name:'Kth Smallest Element in BST',url:'https://leetcode.com/problems/kth-smallest-element-in-a-bst/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'Inorder Traversal Counter',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'t013',name:'Construct Binary Tree from Preorder and Inorder',url:'https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'Divide & Conquer + Index HashMap',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'t014',name:'Binary Tree Maximum Path Sum',url:'https://leetcode.com/problems/binary-tree-maximum-path-sum/',topic:'Trees',diff:'Hard',status:'unsolved',concept:'Post-order DFS Global Max',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'t015',name:'Serialize and Deserialize Binary Tree',url:'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/',topic:'Trees',diff:'Hard',status:'unsolved',concept:'BFS/DFS String Encoding',companies:['Amazon','Google','Facebook','Microsoft','Uber'],notes:''},
+{id:'t016',name:'Path Sum II',url:'https://leetcode.com/problems/path-sum-ii/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'DFS Backtracking Accumulate',companies:['Amazon','Adobe','Microsoft'],notes:''},
+{id:'t017',name:'Flatten Binary Tree to Linked List',url:'https://leetcode.com/problems/flatten-binary-tree-to-linked-list/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'Morris Traversal / Reverse Preorder',companies:['Amazon','Microsoft'],notes:''},
+{id:'t018',name:'Lowest Common Ancestor of Binary Tree',url:'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'Post-order Return Logic',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'t019',name:'Binary Tree Zigzag Level Order',url:'https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'BFS with Direction Flag',companies:['Amazon','Microsoft','Facebook'],notes:''},
+{id:'t020',name:'Boundary of Binary Tree',url:'https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/',topic:'Trees',diff:'Medium',status:'unsolved',concept:'Left Boundary + Leaves + Right Boundary',companies:['Amazon','Samsung'],notes:''},
+// HEAPS
+{id:'h001',name:'Kth Largest Element in an Array',url:'https://leetcode.com/problems/kth-largest-element-in-an-array/',topic:'Heaps',diff:'Medium',status:'unsolved',concept:'Min Heap Size K / Quickselect',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'h002',name:'Top K Frequent Elements',url:'https://leetcode.com/problems/top-k-frequent-elements/',topic:'Heaps',diff:'Medium',status:'unsolved',concept:'Frequency Map + Min Heap',companies:['Amazon','Google','Facebook','Yelp'],notes:''},
+{id:'h003',name:'Find Median from Data Stream',url:'https://leetcode.com/problems/find-median-from-data-stream/',topic:'Heaps',diff:'Hard',status:'unsolved',concept:'Two Heaps Max+Min Balance',companies:['Amazon','Google','Microsoft','Goldman Sachs'],notes:''},
+{id:'h004',name:'Task Scheduler',url:'https://leetcode.com/problems/task-scheduler/',topic:'Heaps',diff:'Medium',status:'unsolved',concept:'Max Heap + Cooldown Queue',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'h005',name:'K Closest Points to Origin',url:'https://leetcode.com/problems/k-closest-points-to-origin/',topic:'Heaps',diff:'Medium',status:'unsolved',concept:'Max Heap of Size K',companies:['Amazon','Google','Facebook','Uber'],notes:''},
+{id:'h006',name:'Last Stone Weight',url:'https://leetcode.com/problems/last-stone-weight/',topic:'Heaps',diff:'Easy',status:'unsolved',concept:'Max Heap Simulation',companies:['Amazon'],notes:''},
+{id:'h007',name:'Kth Largest Element in a Stream',url:'https://leetcode.com/problems/kth-largest-element-in-a-stream/',topic:'Heaps',diff:'Easy',status:'unsolved',concept:'Min Heap Running K',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'h008',name:'Reorganize String',url:'https://leetcode.com/problems/reorganize-string/',topic:'Heaps',diff:'Medium',status:'unsolved',concept:'Max Heap Greedy Placement',companies:['Amazon','Google'],notes:''},
+// GRAPHS
+{id:'g001',name:'Number of Islands',url:'https://leetcode.com/problems/number-of-islands/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'BFS/DFS Flood Fill',companies:['Amazon','Google','Facebook','Microsoft','Adobe'],notes:''},
+{id:'g002',name:'Clone Graph',url:'https://leetcode.com/problems/clone-graph/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'BFS + HashMap Node Clone',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'g003',name:'Max Area of Island',url:'https://leetcode.com/problems/max-area-of-island/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'DFS Flood Fill Count',companies:['Amazon','Google'],notes:''},
+{id:'g004',name:'Pacific Atlantic Water Flow',url:'https://leetcode.com/problems/pacific-atlantic-water-flow/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Reverse Multi-source BFS',companies:['Amazon','Google'],notes:''},
+{id:'g005',name:'Rotting Oranges',url:'https://leetcode.com/problems/rotting-oranges/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Multi-source BFS Time Steps',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'g006',name:'Course Schedule',url:'https://leetcode.com/problems/course-schedule/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Topological Sort Cycle Detection',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'g007',name:'Course Schedule II',url:'https://leetcode.com/problems/course-schedule-ii/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:"Kahn's Algorithm BFS Topo",companies:['Amazon','Google','Facebook','Flipkart'],notes:''},
+{id:'g008',name:'Redundant Connection',url:'https://leetcode.com/problems/redundant-connection/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Union Find Cycle Detection',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'g009',name:'Word Ladder',url:'https://leetcode.com/problems/word-ladder/',topic:'Graphs',diff:'Hard',status:'unsolved',concept:'BFS Shortest Transformation',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'g010',name:'Network Delay Time',url:'https://leetcode.com/problems/network-delay-time/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:"Dijkstra's SSSP",companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'g011',name:'Cheapest Flights Within K Stops',url:'https://leetcode.com/problems/cheapest-flights-within-k-stops/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Modified Bellman-Ford / BFS DP',companies:['Amazon','Google','Airbnb'],notes:''},
+{id:'g012',name:'Alien Dictionary',url:'https://leetcode.com/problems/alien-dictionary/',topic:'Graphs',diff:'Hard',status:'unsolved',concept:'Topological Sort Character Graph',companies:['Amazon','Google','Facebook','Airbnb'],notes:''},
+{id:'g013',name:'Number of Connected Components',url:'https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Union Find / DFS Component Count',companies:['Amazon','LinkedIn'],notes:''},
+{id:'g014',name:'Bipartite Graph Check',url:'https://leetcode.com/problems/is-graph-bipartite/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'2-Coloring BFS/DFS',companies:['Amazon','Google'],notes:''},
+{id:'g015',name:'Shortest Path in Binary Matrix',url:'https://leetcode.com/problems/shortest-path-in-binary-matrix/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'BFS 8-directional',companies:['Amazon','Google'],notes:''},
+{id:'g016',name:'Surrounded Regions',url:'https://leetcode.com/problems/surrounded-regions/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'Border DFS Mark Safe',companies:['Amazon','Google'],notes:''},
+{id:'g017',name:'Minimum Spanning Tree',url:'https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:"Prim's / Kruskal's + Union Find",companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'g018',name:'Floyd-Warshall All Pairs Shortest Path',url:'https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/',topic:'Graphs',diff:'Medium',status:'unsolved',concept:'DP All Pairs O(V³)',companies:['Amazon','Google','Microsoft'],notes:''},
+// DYNAMIC PROGRAMMING
+{id:'dp001',name:'Climbing Stairs',url:'https://leetcode.com/problems/climbing-stairs/',topic:'Dynamic Programming',diff:'Easy',status:'unsolved',concept:'Fibonacci DP',companies:['Amazon','Google','Adobe','Microsoft'],notes:''},
+{id:'dp002',name:'House Robber',url:'https://leetcode.com/problems/house-robber/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'1D DP Skip Adjacent',companies:['Amazon','Google','Microsoft','Airbnb'],notes:''},
+{id:'dp003',name:'House Robber II',url:'https://leetcode.com/problems/house-robber-ii/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Circular DP Two Passes',companies:['Amazon','Google'],notes:''},
+{id:'dp004',name:'Decode Ways',url:'https://leetcode.com/problems/decode-ways/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'1D DP Single/Double Digit',companies:['Amazon','Facebook','Microsoft'],notes:''},
+{id:'dp005',name:'Coin Change',url:'https://leetcode.com/problems/coin-change/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Unbounded Knapsack Min Coins',companies:['Amazon','Google','Microsoft','Goldman Sachs'],notes:''},
+{id:'dp006',name:'Word Break',url:'https://leetcode.com/problems/word-break/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'1D DP with Dictionary Lookup',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'dp007',name:'Combination Sum IV',url:'https://leetcode.com/problems/combination-sum-iv/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Unbounded Knapsack Order Matters',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'dp008',name:'Unique Paths',url:'https://leetcode.com/problems/unique-paths/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Grid DP Right+Down',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'dp009',name:'Minimum Path Sum',url:'https://leetcode.com/problems/minimum-path-sum/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Grid DP Min Cost',companies:['Amazon','Google','Adobe'],notes:''},
+{id:'dp010',name:'Longest Common Subsequence',url:'https://leetcode.com/problems/longest-common-subsequence/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'2D DP Classic LCS',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'dp011',name:'Longest Increasing Subsequence',url:'https://leetcode.com/problems/longest-increasing-subsequence/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'DP O(n²) / Patience Sort O(n log n)',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'dp012',name:'Edit Distance',url:'https://leetcode.com/problems/edit-distance/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'2D DP Insert/Delete/Replace',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'dp013',name:'0/1 Knapsack',url:'https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Classic Knapsack 2D DP',companies:['Amazon','Google','Microsoft','Walmart'],notes:''},
+{id:'dp014',name:'Partition Equal Subset Sum',url:'https://leetcode.com/problems/partition-equal-subset-sum/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'Subset Sum / Knapsack Boolean DP',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'dp015',name:'Target Sum',url:'https://leetcode.com/problems/target-sum/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'DP Count Subsets / DFS Memo',companies:['Amazon','Google'],notes:''},
+{id:'dp016',name:'Best Time to Buy Stock with Cooldown',url:'https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/',topic:'Dynamic Programming',diff:'Medium',status:'unsolved',concept:'State Machine DP Hold/Sold/Rest',companies:['Amazon','Google'],notes:''},
+{id:'dp017',name:'Burst Balloons',url:'https://leetcode.com/problems/burst-balloons/',topic:'Dynamic Programming',diff:'Hard',status:'unsolved',concept:'Interval DP Last Balloon',companies:['Amazon','Google'],notes:''},
+{id:'dp018',name:'Distinct Subsequences',url:'https://leetcode.com/problems/distinct-subsequences/',topic:'Dynamic Programming',diff:'Hard',status:'unsolved',concept:'2D DP Count Subsequences',companies:['Amazon','Google'],notes:''},
+{id:'dp019',name:'Regular Expression Matching',url:'https://leetcode.com/problems/regular-expression-matching/',topic:'Dynamic Programming',diff:'Hard',status:'unsolved',concept:'2D DP Wildcard * Handling',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'dp020',name:'Longest Valid Parentheses',url:'https://leetcode.com/problems/longest-valid-parentheses/',topic:'Dynamic Programming',diff:'Hard',status:'unsolved',concept:'Stack / 1D DP',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'dp021',name:'Matrix Chain Multiplication',url:'https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/',topic:'Dynamic Programming',diff:'Hard',status:'unsolved',concept:'Interval DP Min Cost',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'dp022',name:'Egg Drop Problem',url:'https://leetcode.com/problems/super-egg-drop/',topic:'Dynamic Programming',diff:'Hard',status:'unsolved',concept:'DP + Binary Search Optimization',companies:['Amazon','Google','Goldman Sachs'],notes:''},
+// RECURSION & BACKTRACKING
+{id:'rb001',name:'Subsets',url:'https://leetcode.com/problems/subsets/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking Power Set',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'rb002',name:'Subsets II (with duplicates)',url:'https://leetcode.com/problems/subsets-ii/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Sort + Skip Duplicates Backtracking',companies:['Amazon','Google'],notes:''},
+{id:'rb003',name:'Combination Sum',url:'https://leetcode.com/problems/combination-sum/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking with Reuse',companies:['Amazon','Google','Facebook','Adobe'],notes:''},
+{id:'rb004',name:'Combination Sum II',url:'https://leetcode.com/problems/combination-sum-ii/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking No Reuse + Dedup',companies:['Amazon','Google'],notes:''},
+{id:'rb005',name:'Permutations',url:'https://leetcode.com/problems/permutations/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking Swap / Used Array',companies:['Amazon','Google','Microsoft','Facebook','Adobe'],notes:''},
+{id:'rb006',name:'Permutations II',url:'https://leetcode.com/problems/permutations-ii/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking Sort + Duplicate Skip',companies:['Amazon','Google'],notes:''},
+{id:'rb007',name:'N-Queens',url:'https://leetcode.com/problems/n-queens/',topic:'Recursion & Backtracking',diff:'Hard',status:'unsolved',concept:'Constraint Backtracking Row by Row',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'rb008',name:'Sudoku Solver',url:'https://leetcode.com/problems/sudoku-solver/',topic:'Recursion & Backtracking',diff:'Hard',status:'unsolved',concept:'Constraint Backtracking Cell Fill',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'rb009',name:'Word Search',url:'https://leetcode.com/problems/word-search/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'DFS + Visited Grid Backtracking',companies:['Amazon','Google','Microsoft','Adobe'],notes:''},
+{id:'rb010',name:'Palindrome Partitioning',url:'https://leetcode.com/problems/palindrome-partitioning/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking + Palindrome Precheck',companies:['Amazon','Google'],notes:''},
+{id:'rb011',name:'Letter Combinations of Phone Number',url:'https://leetcode.com/problems/letter-combinations-of-a-phone-number/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'Backtracking Digit Mapping',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'rb012',name:'Rat in a Maze',url:'https://www.geeksforgeeks.org/rat-in-a-maze-backtracking-2/',topic:'Recursion & Backtracking',diff:'Medium',status:'unsolved',concept:'DFS Backtracking on Grid',companies:['Amazon','Flipkart','TCS'],notes:''},
+// TRIES
+{id:'tr001',name:'Implement Trie (Prefix Tree)',url:'https://leetcode.com/problems/implement-trie-prefix-tree/',topic:'Tries',diff:'Medium',status:'unsolved',concept:'26-child Trie Node Array',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'tr002',name:'Design Add and Search Words Data Structure',url:'https://leetcode.com/problems/design-add-and-search-words-data-structure/',topic:'Tries',diff:'Medium',status:'unsolved',concept:'Trie + DFS for Wildcard .',companies:['Amazon','Facebook'],notes:''},
+{id:'tr003',name:'Word Search II',url:'https://leetcode.com/problems/word-search-ii/',topic:'Tries',diff:'Hard',status:'unsolved',concept:'Trie + DFS Backtracking Prune',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'tr004',name:'Replace Words',url:'https://leetcode.com/problems/replace-words/',topic:'Tries',diff:'Medium',status:'unsolved',concept:'Trie Root Prefix Matching',companies:['Amazon'],notes:''},
+{id:'tr005',name:'Maximum XOR of Two Numbers',url:'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/',topic:'Tries',diff:'Medium',status:'unsolved',concept:'Binary Trie Bit by Bit XOR',companies:['Amazon','Google'],notes:''},
+// GREEDY
+{id:'gr001',name:'Jump Game',url:'https://leetcode.com/problems/jump-game/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Max Reach Greedy',companies:['Amazon','Google','Adobe'],notes:''},
+{id:'gr002',name:'Jump Game II',url:'https://leetcode.com/problems/jump-game-ii/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Greedy BFS Level Max Reach',companies:['Amazon','Google'],notes:''},
+{id:'gr003',name:'Gas Station',url:'https://leetcode.com/problems/gas-station/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Total Surplus + Local Reset',companies:['Amazon','Google','Bloomberg'],notes:''},
+{id:'gr004',name:'Partition Labels',url:'https://leetcode.com/problems/partition-labels/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Last Occurrence Greedy Extend',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'gr005',name:'Valid Parenthesis String',url:'https://leetcode.com/problems/valid-parenthesis-string/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Min/Max Open Bracket Count',companies:['Amazon','Google'],notes:''},
+{id:'gr006',name:'Minimum Number of Arrows to Burst Balloons',url:'https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Interval Scheduling Sort by End',companies:['Amazon','Google'],notes:''},
+{id:'gr007',name:'Non-overlapping Intervals',url:'https://leetcode.com/problems/non-overlapping-intervals/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Sort by End + Greedy Remove',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'gr008',name:'Activity Selection Problem',url:'https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Sort by Finish Time Greedy',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'gr009',name:'Fractional Knapsack',url:'https://www.geeksforgeeks.org/fractional-knapsack-problem/',topic:'Greedy',diff:'Easy',status:'unsolved',concept:'Sort by Value/Weight Ratio',companies:['Amazon','TCS','Wipro'],notes:''},
+{id:'gr010',name:'Minimum Platforms',url:'https://www.geeksforgeeks.org/minimum-number-platforms-required-railwaybus-station/',topic:'Greedy',diff:'Medium',status:'unsolved',concept:'Sort Arrivals/Departures Sweep',companies:['Amazon','Flipkart','Paytm'],notes:''},
+// BIT MANIPULATION
+{id:'bm001',name:'Single Number',url:'https://leetcode.com/problems/single-number/',topic:'Bit Manipulation',diff:'Easy',status:'unsolved',concept:'XOR All Elements Cancels Pairs',companies:['Amazon','Google','Adobe','TCS'],notes:''},
+{id:'bm002',name:'Number of 1 Bits',url:'https://leetcode.com/problems/number-of-1-bits/',topic:'Bit Manipulation',diff:'Easy',status:'unsolved',concept:'Brian Kernighan n&(n-1)',companies:['Amazon','Microsoft'],notes:''},
+{id:'bm003',name:'Counting Bits',url:'https://leetcode.com/problems/counting-bits/',topic:'Bit Manipulation',diff:'Easy',status:'unsolved',concept:'DP dp[i] = dp[i>>1] + (i&1)',companies:['Amazon','Google'],notes:''},
+{id:'bm004',name:'Reverse Bits',url:'https://leetcode.com/problems/reverse-bits/',topic:'Bit Manipulation',diff:'Easy',status:'unsolved',concept:'Bit Shift and OR 32 times',companies:['Amazon','Apple'],notes:''},
+{id:'bm005',name:'Sum of Two Integers (No + operator)',url:'https://leetcode.com/problems/sum-of-two-integers/',topic:'Bit Manipulation',diff:'Medium',status:'unsolved',concept:'XOR Sum + AND Carry Shift',companies:['Amazon','Facebook','Google'],notes:''},
+{id:'bm006',name:'Power of Two',url:'https://leetcode.com/problems/power-of-two/',topic:'Bit Manipulation',diff:'Easy',status:'unsolved',concept:'n>0 && !(n & n-1)',companies:['Amazon','Google'],notes:''},
+{id:'bm007',name:'Single Number II',url:'https://leetcode.com/problems/single-number-ii/',topic:'Bit Manipulation',diff:'Medium',status:'unsolved',concept:'Bit Count Modulo 3',companies:['Amazon','Google'],notes:''},
+{id:'bm008',name:'Maximum XOR of Two Numbers',url:'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/',topic:'Bit Manipulation',diff:'Medium',status:'unsolved',concept:'Greedy Bit Trie',companies:['Amazon','Google'],notes:''},
+// MATH
+{id:'m001',name:'Count Primes',url:'https://leetcode.com/problems/count-primes/',topic:'Math',diff:'Medium',status:'unsolved',concept:'Sieve of Eratosthenes',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'m002',name:'Happy Number',url:'https://leetcode.com/problems/happy-number/',topic:'Math',diff:'Easy',status:'unsolved',concept:"Floyd's Cycle in Digit Squares",companies:['Amazon','Adobe'],notes:''},
+{id:'m003',name:'Pow(x,n)',url:'https://leetcode.com/problems/powx-n/',topic:'Math',diff:'Medium',status:'unsolved',concept:'Fast Exponentiation Binary Exp',companies:['Amazon','Google','Microsoft','Facebook'],notes:''},
+{id:'m004',name:'Factorial Trailing Zeroes',url:'https://leetcode.com/problems/factorial-trailing-zeroes/',topic:'Math',diff:'Medium',status:'unsolved',concept:'Count Factor 5 in n!',companies:['Amazon','Adobe'],notes:''},
+{id:'m005',name:'GCD and LCM',url:'https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/',topic:'Math',diff:'Easy',status:'unsolved',concept:'Euclidean Algorithm',companies:['Amazon','Google','TCS'],notes:''},
+{id:'m006',name:'Excel Sheet Column Number',url:'https://leetcode.com/problems/excel-sheet-column-number/',topic:'Math',diff:'Easy',status:'unsolved',concept:'Base 26 to Decimal',companies:['Amazon','Microsoft'],notes:''},
+{id:'m007',name:'Josephus Problem',url:'https://www.geeksforgeeks.org/josephus-problem/',topic:'Math',diff:'Medium',status:'unsolved',concept:'Recursive Formula f(n,k)',companies:['Amazon','Google'],notes:''},
+// DESIGN
+{id:'d001',name:'LRU Cache',url:'https://leetcode.com/problems/lru-cache/',topic:'Design',diff:'Medium',status:'unsolved',concept:'Doubly LL + HashMap O(1) All Ops',companies:['Amazon','Google','Microsoft','Facebook','Adobe','Flipkart'],notes:''},
+{id:'d002',name:'LFU Cache',url:'https://leetcode.com/problems/lfu-cache/',topic:'Design',diff:'Hard',status:'unsolved',concept:'Frequency Bucket + Two HashMaps',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'d003',name:'Design HashMap',url:'https://leetcode.com/problems/design-hashmap/',topic:'Design',diff:'Easy',status:'unsolved',concept:'Chaining / Open Addressing',companies:['Amazon','Google','Microsoft'],notes:''},
+{id:'d004',name:'Design Circular Queue',url:'https://leetcode.com/problems/design-circular-queue/',topic:'Design',diff:'Medium',status:'unsolved',concept:'Array Circular Buffer head/tail',companies:['Amazon','Microsoft'],notes:''},
+{id:'d005',name:'Design Twitter',url:'https://leetcode.com/problems/design-twitter/',topic:'Design',diff:'Medium',status:'unsolved',concept:'HashMap + Min Heap Top 10 Feed',companies:['Twitter','Amazon'],notes:''},
+{id:'d006',name:'Design Hit Counter',url:'https://leetcode.com/problems/design-hit-counter/',topic:'Design',diff:'Medium',status:'unsolved',concept:'Queue / Circular Array 300s Window',companies:['Amazon','Dropbox','Atlassian'],notes:''},
+// INTERVALS
+{id:'iv001',name:'Meeting Rooms',url:'https://leetcode.com/problems/meeting-rooms/',topic:'Intervals',diff:'Easy',status:'unsolved',concept:'Sort + Pairwise Overlap Check',companies:['Amazon','Google','Facebook'],notes:''},
+{id:'iv002',name:'Meeting Rooms II',url:'https://leetcode.com/problems/meeting-rooms-ii/',topic:'Intervals',diff:'Medium',status:'unsolved',concept:'Min Heap End Times / Sweep',companies:['Amazon','Google','Facebook','Microsoft'],notes:''},
+{id:'iv003',name:'Minimum Interval to Include Each Query',url:'https://leetcode.com/problems/minimum-interval-to-include-each-query/',topic:'Intervals',diff:'Hard',status:'unsolved',concept:'Sort Intervals + Offline Queries + Min Heap',companies:['Google'],notes:''},
+];
+
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const TOPIC_ORDER = ['Arrays','Strings','Sliding Window','Two Pointers','Binary Search','Linked List','Stack & Queue','Trees','Heaps','Graphs','Dynamic Programming','Recursion & Backtracking','Tries','Greedy','Bit Manipulation','Math','Design','Intervals'];
+const TOPIC_STYLE = {
+  'Arrays':                  {icon:'▦',color:'#00ff88',bg:'rgba(0,255,136,0.1)'},
+  'Strings':                 {icon:'≈',color:'#00d4ff',bg:'rgba(0,212,255,0.1)'},
+  'Sliding Window':          {icon:'▬',color:'#86efac',bg:'rgba(134,239,172,0.1)'},
+  'Two Pointers':            {icon:'⇔',color:'#67e8f9',bg:'rgba(103,232,249,0.1)'},
+  'Binary Search':           {icon:'◉',color:'#a78bfa',bg:'rgba(167,139,250,0.1)'},
+  'Linked List':             {icon:'⇝',color:'#ff6b35',bg:'rgba(255,107,53,0.1)'},
+  'Stack & Queue':           {icon:'⊟',color:'#ffd32a',bg:'rgba(255,211,42,0.1)'},
+  'Trees':                   {icon:'⌥',color:'#34d399',bg:'rgba(52,211,153,0.1)'},
+  'Heaps':                   {icon:'△',color:'#e879f9',bg:'rgba(232,121,249,0.1)'},
+  'Graphs':                  {icon:'◈',color:'#60a5fa',bg:'rgba(96,165,250,0.1)'},
+  'Dynamic Programming':     {icon:'⊞',color:'#fb923c',bg:'rgba(251,146,60,0.1)'},
+  'Recursion & Backtracking':{icon:'↺',color:'#f472b6',bg:'rgba(244,114,182,0.1)'},
+  'Tries':                   {icon:'⊕',color:'#2dd4bf',bg:'rgba(45,212,191,0.1)'},
+  'Greedy':                  {icon:'⚡',color:'#fbbf24',bg:'rgba(251,191,36,0.1)'},
+  'Bit Manipulation':        {icon:'⊻',color:'#94a3b8',bg:'rgba(148,163,184,0.1)'},
+  'Math':                    {icon:'∑',color:'#f9a8d4',bg:'rgba(249,168,212,0.1)'},
+  'Design':                  {icon:'◫',color:'#c4b5fd',bg:'rgba(196,181,253,0.1)'},
+  'Intervals':               {icon:'⊣',color:'#fdba74',bg:'rgba(253,186,116,0.1)'},
+};
+const SK = 'ash_dsa_v2';
+const STATUS_CYCLE = {unsolved:'attempted',attempted:'solved',solved:'unsolved'};
+const STATUS_LABEL = {unsolved:'○ TODO',attempted:'~ TRIED',solved:'✓ SOLVED'};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let db = {problems:[],openTopics:{},userStatus:{},userNotes:{}};
+let editId = null;
+
+function load() {
+  try { const r=localStorage.getItem(SK); if(r) db=JSON.parse(r); } catch(e){}
+  if(!db.problems||db.problems.length===0) { db.problems=SEED.map(p=>({...p})); }
+  if(!db.openTopics) db.openTopics={};
+  if(!db.userStatus) db.userStatus={};
+  if(!db.userNotes) db.userNotes={};
+  // Sync seed updates — if SEED has more problems, append missing ones
+  const ids = new Set(db.problems.map(p=>p.id));
+  SEED.forEach(s=>{ if(!ids.has(s.id)) db.problems.push({...s}); });
+  populateFilters();
+}
+function save() { try{localStorage.setItem(SK,JSON.stringify(db));}catch(e){} }
+function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2); }
+
+function populateFilters() {
+  const sel = document.getElementById('filterTopic');
+  TOPIC_ORDER.forEach(t => {
+    const o=document.createElement('option'); o.value=t; o.textContent=t; sel.appendChild(o);
+  });
+  const fsel = document.getElementById('f-topic');
+  TOPIC_ORDER.forEach(t => {
+    const o=document.createElement('option'); o.value=t; o.textContent=t; fsel.appendChild(o);
+  });
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function getFiltered() {
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const fs=document.getElementById('filterStatus').value;
+  const fd=document.getElementById('filterDiff').value;
+  const ft=document.getElementById('filterTopic').value;
+  return db.problems.filter(p=>{
+    if(ft && p.topic!==ft) return false;
+    if(fs && p.status!==fs) return false;
+    if(fd && p.diff!==fd) return false;
+    if(q){
+      const hay=[p.name,p.concept||'',p.topic,(p.companies||[]).join(' '),(p.notes||'')].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function render() {
+  const filtered = getFiltered();
+  const byTopic = {};
+  TOPIC_ORDER.forEach(t=>byTopic[t]=[]);
+  filtered.forEach(p=>{ if(!byTopic[p.topic]) byTopic[p.topic]=[]; byTopic[p.topic].push(p); });
+
+  const all = db.problems;
+  const solved = all.filter(p=>p.status==='solved').length;
+  const attempted = all.filter(p=>p.status==='attempted').length;
+  document.getElementById('s-solved').textContent=solved;
+  document.getElementById('s-attempted').textContent=attempted;
+  document.getElementById('s-unsolved').textContent=all.length-solved-attempted;
+  document.getElementById('s-total').textContent=all.length;
+  document.getElementById('globalBar').style.width=all.length?(solved/all.length*100)+'%':'0%';
+
+  const searching = document.getElementById('searchInput').value||document.getElementById('filterStatus').value||document.getElementById('filterDiff').value||document.getElementById('filterTopic').value;
+
+  let html='';
+  TOPIC_ORDER.forEach(topic=>{
+    const probs=byTopic[topic]||[];
+    const allInTopic=db.problems.filter(p=>p.topic===topic);
+    if(allInTopic.length===0) return;
+    if(searching && probs.length===0) return;
+
+    const s=TOPIC_STYLE[topic]||{icon:'◆',color:'#888',bg:'rgba(136,136,136,0.1)'};
+    const isOpen=db.openTopics[topic];
+    const topSolved=allInTopic.filter(p=>p.status==='solved').length;
+    const pct=allInTopic.length?Math.round(topSolved/allInTopic.length*100):0;
+    const topAttempted=allInTopic.filter(p=>p.status==='attempted').length;
+    const topId='tp_'+topic.replace(/[\s&]/g,'_');
+
+    html+=`<div class="topic-block${isOpen?' open':''}" id="${topId}">
+      <div class="topic-header" onclick="toggleTopic('${topic}')">
+        <div class="th-left">
+          <div class="topic-icon-wrap" style="background:${s.bg};color:${s.color}">${s.icon}</div>
+          <span class="topic-name" style="color:${s.color}">${topic}</span>
+          <span class="topic-count">${allInTopic.length}</span>
+        </div>
+        <div class="th-right">
+          <div class="tp-stats">
+            <span><span class="tp-stat-dot" style="background:var(--easy)"></span>${topSolved}</span>
+            <span><span class="tp-stat-dot" style="background:var(--yellow)"></span>${topAttempted}</span>
+            <span style="color:var(--text3)">${pct}%</span>
+          </div>
+          <div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%;background:${s.color}"></div></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table><thead><tr>
+          <th>#</th><th>PROBLEM</th><th>DIFF</th><th>CONCEPT</th><th>COMPANIES</th><th>STATUS</th><th>NOTES</th><th></th>
+        </tr></thead><tbody>`;
+
+    if(probs.length===0){
+      html+=`<tr class="empty-row"><td colspan="8">No problems match filters in this topic.</td></tr>`;
+    } else {
+      probs.forEach((p,i)=>{
+        const dc=p.diff==='Easy'?'de':p.diff==='Hard'?'dh':'dm';
+        const cos=(p.companies||[]).map(c=>`<span class="ctag">${c}</span>`).join('');
+        const noteText=p.notes?`<span class="notes-cell" onclick="openNotes('${p.id}')">${p.notes.slice(0,38)}${p.notes.length>38?'…':''}</span>`:`<span class="none">—</span>`;
+        html+=`<tr class="prob-row">
+          <td style="color:var(--text3);font-size:10px;width:32px">${i+1}</td>
+          <td><a class="prob-link" href="${p.url||'#'}" target="_blank" rel="noopener">${p.name}</a></td>
+          <td><span class="diff ${dc}">${p.diff}</span></td>
+          <td>${p.concept?`<span class="concept-tag">${p.concept}</span>`:'<span class="none">—</span>'}</td>
+          <td><div class="tags">${cos||'<span class="none">—</span>'}</div></td>
+          <td><span class="status-badge st-${p.status}" onclick="cycleStatus('${p.id}')">${STATUS_LABEL[p.status]}</span></td>
+          <td>${noteText}</td>
+          <td><div class="act-btns">
+            <button class="act-btn" onclick="openEdit('${p.id}')">✎</button>
+            <button class="act-btn del" onclick="del('${p.id}')">✕</button>
+          </div></td>
+        </tr>`;
+      });
+    }
+    html+=`</tbody></table></div></div>`;
+  });
+
+  document.getElementById('main').innerHTML=html;
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────
+function toggleTopic(t) { db.openTopics[t]=!db.openTopics[t]; save(); render(); }
+
+function cycleStatus(id) {
+  const p=db.problems.find(x=>x.id===id); if(!p) return;
+  p.status=STATUS_CYCLE[p.status];
+  save(); render();
+  toast('→ '+STATUS_LABEL[p.status]+': '+p.name);
+}
+
+function del(id) {
+  const p=db.problems.find(x=>x.id===id); if(!p) return;
+  if(!confirm(`Delete "${p.name}"?`)) return;
+  db.problems=db.problems.filter(x=>x.id!==id);
+  save(); render(); toast('Deleted.');
+}
+
+function openAdd() {
+  editId=null;
+  document.getElementById('formTitle').textContent='⚡ ADD PROBLEM';
+  ['f-name','f-url','f-concept','f-companies','f-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-diff').value='Medium';
+  document.getElementById('f-status').value='unsolved';
+  document.getElementById('f-topic').value='Arrays';
+  document.getElementById('formOverlay').classList.add('on');
+  setTimeout(()=>document.getElementById('f-name').focus(),120);
+}
+
+function openEdit(id) {
+  const p=db.problems.find(x=>x.id===id); if(!p) return;
+  editId=id;
+  document.getElementById('formTitle').textContent='✎ EDIT PROBLEM';
+  document.getElementById('f-name').value=p.name;
+  document.getElementById('f-url').value=p.url||'';
+  document.getElementById('f-diff').value=p.diff;
+  document.getElementById('f-status').value=p.status;
+  document.getElementById('f-topic').value=p.topic;
+  document.getElementById('f-concept').value=p.concept||'';
+  document.getElementById('f-companies').value=(p.companies||[]).join(', ');
+  document.getElementById('f-notes').value=p.notes||'';
+  document.getElementById('formOverlay').classList.add('on');
+}
+
+function saveProblem() {
+  const name=document.getElementById('f-name').value.trim();
+  if(!name){toast('Name is required!');return;}
+  const prob={
+    id:editId||uid(),
+    name,
+    url:document.getElementById('f-url').value.trim(),
+    diff:document.getElementById('f-diff').value,
+    status:document.getElementById('f-status').value,
+    topic:document.getElementById('f-topic').value,
+    concept:document.getElementById('f-concept').value.trim(),
+    companies:document.getElementById('f-companies').value.split(',').map(s=>s.trim()).filter(Boolean),
+    notes:document.getElementById('f-notes').value.trim(),
+  };
+  if(editId){
+    const i=db.problems.findIndex(x=>x.id===editId);
+    if(i!==-1) db.problems[i]=prob;
+    toast('Updated: '+prob.name);
+  } else {
+    db.problems.push(prob);
+    db.openTopics[prob.topic]=true;
+    toast('Added: '+prob.name);
+  }
+  save(); closeOverlay('formOverlay'); render();
+}
+
+function openNotes(id) {
+  const p=db.problems.find(x=>x.id===id); if(!p||!p.notes) return;
+  document.getElementById('notesTitle').textContent='📝 '+p.name;
+  document.getElementById('notesContent').textContent=p.notes;
+  document.getElementById('notesOverlay').classList.add('on');
+}
+
+function closeOverlay(id) { document.getElementById(id).classList.remove('on'); }
+
+function toast(msg) {
+  document.getElementById('toast-msg').textContent=msg;
+  const t=document.getElementById('toast');
+  t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2400);
+}
+
+// ─── EVENT LISTENERS ──────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input',render);
+document.querySelectorAll('.overlay').forEach(el=>el.addEventListener('click',e=>{ if(e.target===el) el.classList.remove('on'); }));
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.overlay').forEach(m=>m.classList.remove('on'));
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();document.getElementById('searchInput').focus();}
+});
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+load();
+render();
+</script>
+</body>
+</html>
